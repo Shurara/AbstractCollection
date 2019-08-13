@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.NoSuchElementException;
 import java.util.Iterator;
@@ -39,8 +40,17 @@ public class ArrayCollection<T> implements Collection<T> {
     }
 
     @Override
-    public <T1> T1[] toArray(T1[] a) {
-        return (T1[])this.toArray();
+    public <T> T[] toArray(final T[] a) {
+	    // BEGIN (write your solution here)
+        
+       if (a.length < size) return (T[]) Arrays.copyOf(m, size, a.getClass());
+
+        System.arraycopy(m, 0, a, 0, size);
+
+        if (a.length > size) a[size] = null;
+
+        return a;
+	    // END
     }
 
     @Override
@@ -91,7 +101,7 @@ public class ArrayCollection<T> implements Collection<T> {
 
     @Override
     public boolean retainAll(final Collection<?> c) {
-        for (final T item : this) {
+        for (final Object item : this) {
             if (!c.contains(item)) this.remove(item);
         }
         return true;
@@ -106,35 +116,34 @@ public class ArrayCollection<T> implements Collection<T> {
     private void remove(final int index) {
         if (index != this.size() - 1)
             System.arraycopy(m, index + 1, m, index, this.size() - index - 1);
-        if (this.size() != 0) {
-            size--;
-        }
+        size--;
     }
 
     private class ElementsIterator implements Iterator<T> {
-        // BEGIN (write your solution here)
-        private int currentIndex;
-        boolean canRemove = false;
-        @Override
-        public boolean hasNext(){
-            return currentIndex < ArrayCollection.this.size();
-        }
-        @Override
-        public T next(){
-         if(!hasNext()){
-            throw new NoSuchElementException("There isn't such element");
-         } 
-            canRemove = true;
-            return ArrayCollection.this.m[currentIndex++];
-            
-        }
-         @Override
-	    public void remove() {
-		    if (!canRemove) throw new IllegalStateException();
-		    ArrayCollection.this.remove(--currentIndex);
-            canRemove = false;
 
-		}
-        // END
+        private int index;
+
+        private int last = -1;
+
+        @Override
+        public boolean hasNext() {
+            return ArrayCollection.this.size() > index;
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext())
+            throw new NoSuchElementException();
+            last = index;
+            return ArrayCollection.this.m[index++];
+        }
+
+        @Override
+        public void remove() {
+            if (last == -1) throw new IllegalStateException();
+            ArrayCollection.this.remove(last);
+            index--;
+            last = -1;
+        }
     }
 }
