@@ -1,0 +1,28 @@
+В этом практическом задании Вам необходимо реализовать интерфейс Collection
+на базе массива. Внимательно ознакомьтесь с документацией по интерфейсу Collection.
+
+Реализовать необходимо только не default методы, а именно:
+
+boolean add(E e)
+boolean addAll(Collection<? extends E> c)
+void clear()
+boolean contains(Object o)
+boolean containsAll(Collection<?> c)
+boolean equals(Object o)
+int hashCode()
+boolean isEmpty()
+Iterator iterator()
+boolean remove(Object o)
+boolean removeAll(Collection<?> c)
+boolean retainAll(Collection<?> c)
+int size()
+Object[] toArray()
+T[] toArray(T[] a) - в случае, если переданный массив А имеет размер больший
+или равный размеру текущей колекции, то метод должен скопировать все элементы
+текущей колекции в массив А. И вернуть массив А. Если же А меньше размера коллекции,
+то метод должен создать новый массив, который имеет тот же тип что и массив А,
+но при этом имеет длинну равную длинне колекции. После, метод должен скопировать
+все элементы колекции в новый массив. И вернуть его.
+Корректность Вашей реализации будет проверена Unit тестами, которые Вы можете
+найти в классе ArrayCollectionTest. Имя класса, в котором Вам необходимо написать
+реализацию: ArrayCollection.
