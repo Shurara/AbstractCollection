@@ -1,0 +1,11 @@
+В этом практическом задании Вам дано два класса:
+
+Student - класс пустышка
+University - класс, который хранит в себе массив студентов
+Задача! Сделать класс University "перечисляемым" (Iterable) по типу Student (Iterable), чтобы объекты этого класса можно было использовать в цикле for-each. Например:
+
+final University univ = new University(students);
+//...
+for (Student student: university) {
+    // ...
+}
