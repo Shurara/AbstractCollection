@@ -16,90 +16,95 @@ public class HashSet<T> implements Set<T> {
     @Override
     public boolean isEmpty() {
         // BEGIN (write your solution here)
-        return elements.size() > 0;
+        return elements.isEmpty();
         // END
     }
 
     @Override
     public boolean contains(Object o) {
         // BEGIN (write your solution here)
-        for(T item : elements.keySet()){
-            if(item.equals(o)){
-                return true;
-            }
-        }
+        return elements.keySet().contains(o);
         // END
-        return false;
     }
 
     @Override
     public Iterator<T> iterator() {
         // BEGIN (write your solution here)
-
+        return elements.keySet().iterator();
         // END
     }
 
     @Override
     public Object[] toArray() {
         // BEGIN (write your solution here)
-
+        return elements.keySet().toArray();
         // END
     }
 
     @Override
     public <T1> T1[] toArray(T1[] a) {
         // BEGIN (write your solution here)
-
+        return elements.keySet().toArray(a);
         // END
     }
 
     @Override
     public boolean add(T t) {
         // BEGIN (write your solution here)
-
+        elements.put(t, EXIST);
+        return true;
         // END
     }
 
     @Override
     public boolean remove(Object o) {
         // BEGIN (write your solution here)
-
+        elements.remove(o);
+        return true;
         // END
     }
 
     @Override
     public boolean containsAll(Collection<?> c) {
         // BEGIN (write your solution here)
-
+        for (Object element : c)
+            if (!contains(element)) return false;
+        return true;
         // END
     }
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
         // BEGIN (write your solution here)
-
+        for (T o : c)
+            add(o);
+        return true;
         // END
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
         // BEGIN (write your solution here)
-
+        for (Object o : c)
+            remove(o);
+        return true;
         // END
     }
 
     @Override
     public boolean retainAll(Collection<?> c) {
         // BEGIN (write your solution here)
-
+        for (Object o : this)
+            if (!c.contains(o))
+                remove(o);
+        return true;
         // END
     }
 
     @Override
     public void clear() {
         // BEGIN (write your solution here)
-        elements = (HashMap<>())new Object[1];
-        size = 0;
+        elements.clear();
         // END
     }
 }
